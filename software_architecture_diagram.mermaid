@@ -1,0 +1,49 @@
+graph TB
+    %% Cliente/Usuario
+    User[👤 Usuario] --> Browser[🌐 Navegador Web]
+    
+    %% Capa de Presentación
+    subgraph "🌍 Servidor Cloud Gratuito"
+        subgraph "📱 Frontend"
+            Angular[🅰️ Angular 17+<br/>- Componentes<br/>- Servicios<br/>- Routing]
+            Bootstrap[🎨 Bootstrap 5<br/>- CSS Framework<br/>- Componentes UI<br/>- Responsive Design]
+            Angular --> Bootstrap
+        end
+        
+        subgraph "⚙️ Backend"
+            SpringBoot[☕ Spring Boot<br/>- REST Controllers<br/>- Business Logic<br/>- Security JWT]
+            SpringData[🗂️ Spring Data JPA<br/>- Entity Models<br/>- Repository Layer<br/>- Query Methods]
+            SpringSecurity[🔒 Spring Security<br/>- Authentication<br/>- Authorization<br/>- CORS Config]
+            
+            SpringBoot --> SpringData
+            SpringBoot --> SpringSecurity
+        end
+    end
+    
+    %% Base de Datos
+    subgraph "🗄️ Base de Datos"
+        Oracle[(🏛️ Oracle Database<br/>- Tablas<br/>- Stored Procedures<br/>- Triggers<br/>- Índices)]
+    end
+    
+    %% Conexiones principales
+    Browser -->|HTTPS Requests| Angular
+    Angular -->|HTTP REST API| SpringBoot
+    SpringData -->|JDBC Connection| Oracle
+    
+    %% Flujo de datos
+    Angular -.->|JSON Response| Browser
+    SpringBoot -.->|JSON Data| Angular
+    Oracle -.->|Query Results| SpringData
+    
+ 
+    %% Estilos
+    classDef frontend fill:#e1f5fe,stroke:#0277bd,stroke-width:2px,color:#000
+    classDef backend fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef database fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#000
+    classDef cloud fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#000
+    classDef external fill:#fafafa,stroke:#757575,stroke-width:1px,color:#000
+    
+    class Angular,Bootstrap frontend
+    class SpringBoot,SpringData,SpringSecurity backend
+    class Oracle database
+    class CloudStorage,EmailService,Monitoring external
